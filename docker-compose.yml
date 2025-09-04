@@ -22,3 +22,10 @@ services:
       - POSTGRES_PASSWORD=password
     volumes:
       - ./pg_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5433:5432" # access via port 5433
+    # creating a new user
+    # psql -U public_test representable_db
+    # CREATE USER public_test WITH encrypted password 'test';
+    # change to select only for non-PII tables
+    # GRANT ALL PRIVILEGES ON DATABASE representable_db to public_test;

@@ -14,9 +14,17 @@ cp .env.example .env # update the variables
 
 docker compose up -d
 docker compose exec app /bin/bash
-python manage.py migrate --settings=representable.settings.dev
-python manage.py createsuperuser --settings=representable.settings.dev
 
+# run once to: setup the database, superuser, and test the app
+export DJANGO_SETTINGS_MODULE=representable.settings.dev
+python manage.py migrate 
+python manage.py makemigrations
+python manage.py createsuperuser
+python manage.py loaddata states.json
+python manage.py collectstatic
+python manage.py test
+
+# run server
 python manage.py runserver 0:8000 --settings=representable.settings.dev
 ```
 
