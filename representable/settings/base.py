@@ -75,20 +75,36 @@ INSTALLED_APPS = [
     "ckeditor",
     "representable",
     "taggit",
+    'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.facebook',
-
-    # google code content VVV
-
-    # 'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.linkedin',
     # 'allauth.socialaccount.providers.linkedin_oauth2',
 ]
 
+
+SOCIALACCOUNT_PROVIDERS = {
+    # https://docs.allauth.org/en/dev/socialaccount/providers/google.html
+    'google': {
+        'VERIFIED_EMAIL': True,
+        'APP': {
+            'client_id': os.getenv("GOOGLE_OAUTH_CLIENT_ID"),
+            'secret': os.getenv("GOOGLE_OAUTH_SECRET"),
+            'key': ''
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
 ACCOUNT_SESSION_REMEMBER = True
 
 
-# SITE_ID = 2
-# google code comment
 SITE_ID = 1
 # SOCIALAPP_ID = 1
 
@@ -130,21 +146,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "representable.wsgi.application"
-
-
-# google code comment
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'SCOPE': [
-#             'profile',
-#             'email',
-#         ],
-#         'AUTH_PARAMS': {
-#             'access_type': 'online',
-#         }
-#     }
-# }
-
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -213,13 +214,9 @@ LANGUAGES = (
 )
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
