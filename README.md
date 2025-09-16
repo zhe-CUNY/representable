@@ -16,9 +16,9 @@ docker compose up -d
 docker compose exec app /bin/bash
 
 # run once to: setup the database, superuser, and test the app
-export DJANGO_SETTINGS_MODULE=representable.settings.dev
-python manage.py migrate 
+export DJANGO_SETTINGS_MODULE=representable.settings.dev 
 python manage.py makemigrations
+python manage.py migrate
 python manage.py createsuperuser
 python manage.py loaddata states.json
 python manage.py collectstatic
